@@ -10,7 +10,7 @@
 * Instalar os requirements
     * $ pip install -r requirements.txt
 * Criar a variável de ambiente
-    * set FLASK_APP=hello.py
+    * set FLASK_APP=index.py
 * Correr servidor
     * flask run
 
