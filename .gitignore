@@ -109,3 +109,4 @@ venv.bak/
 /Lib
 /Scripts
 /tcl
+.vscode/settings.json
