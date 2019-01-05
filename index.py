@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 LDR_PIN = 17
 SM_PIN = 18
+ldr_state = 0
 sm_state = 7.5
 
 GPIO.setmode(GPIO.BCM)
@@ -32,6 +33,17 @@ def index():
     }
     return render_template("index.html", **templateData)
 
+@app.route("/<devicename>/<action>")
+def control(devicename, action):
+    if devicename == "sm":
+        sm_state = (float(action))
+        pwm.ChangeDutyCycle(sm_state)
+    templateData = {
+        'ldr': ldr_state,
+        'sm': sm_state
+    }
+    return render_template("index.html", **templateData)
+
 if __name__ == "__main__":
     try:
         app.run(host= '0.0.0.0', debug=True)
@@ -41,4 +53,3 @@ if __name__ == "__main__":
         print("STOP")
         pwm.stop()
         GPIO.cleanup()
-    
