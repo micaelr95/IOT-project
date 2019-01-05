@@ -1,18 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Raspberry</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="5">
-</head>
-<body>
-    <h1>Sensor de LDR</h1>
-    <h3>Estado atual:</h3>
-    <p>{{ ldr }}</p>
-    <h1>Servo Motor</h1>
-    <h3>Estado atual</h3>
-    <p>{{ sm }}</p>
-</body>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Raspberry</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="refresh" content="10">
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+		<script>
+			$().ready(function() {
+				var ldrStatus = {{ ldr }};
+				var smStatus = {{ sm }};
+				var url = parseFloat($(location).attr("href").split("/").slice(-1));
+				if (ldrStatus == 0) {
+					$("#ldrStatus").text("Noite");
+				}	else {
+					$("#ldrStatus").text("Dia");
+				}
+				if (url == 7.5) {
+					$("#smAuto").removeClass("active");
+					$("#smOpen").removeClass("active");
+					$("#smClose").addClass("active");
+				} else if (url == 12.5) {
+					$("#smAuto").removeClass("active");
+					$("#smOpen").addClass("active");
+					$("#smClose").removeClass("active");
+				} else {
+					$("#smAuto").addClass("active");
+					$("#smOpen").removeClass("active");
+					$("#smClose").removeClass("active");
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Sensor de LDR</h1>
+			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				<label class="alert alert-primary" id="ldrStatus"></label>
+			</div>
+			<h1>Servo Motor</h1>
+			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				<a href="/" class="btn btn-secondary active" id="smAuto">Automático</a>
+				<a href="/sm/12.5" class="btn btn-secondary" id="smOpen">Aberto</a>
+				<a href="/sm/7.5" class="btn btn-secondary" id="smClose">Fechado</a>
+			</div>
+		</div>
+	</body>
 </html>

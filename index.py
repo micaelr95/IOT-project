@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 LDR_PIN = 17
 SM_PIN = 18
-ldr_state = 0
 sm_state = 7.5
 
 GPIO.setmode(GPIO.BCM)
@@ -39,7 +38,7 @@ def control(devicename, action):
         sm_state = (float(action))
         pwm.ChangeDutyCycle(sm_state)
     templateData = {
-        'ldr': ldr_state,
+        'ldr': GPIO.input(LDR_PIN),
         'sm': sm_state
     }
     return render_template("index.html", **templateData)
