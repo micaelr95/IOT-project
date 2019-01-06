@@ -55,11 +55,4 @@ def control(devicename, action):
     return render_template("index.html", **templateData)
 
 if __name__ == "__main__":
-    try:
-        app.run(host= '0.0.0.0', debug=True)
-    except KeyboardInterrupt:
-        print('Key Interrupt')
-    finally:
-        print("STOP")
-        pwm.stop()
-        GPIO.cleanup()
+    app.run(host= '0.0.0.0', debug=True)

@@ -8,6 +8,19 @@
 		<meta http-equiv="refresh" content="10">
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+		<style>
+			.container {
+				margin-top: 30px;
+			}
+			.center-div {
+				display: table;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			.center {
+				text-align: center;
+			}
+		</style>
 		<script>
 			$().ready(function() {
 				var ldrStatus = {{ ldr }};
@@ -27,21 +40,27 @@
 					$("#smOpen").addClass("active");
 					$("#smClose").removeClass("active");
 				} else {
-					$("#smAuto").addClass("active");
-					$("#smOpen").removeClass("active");
-					$("#smClose").removeClass("active");
+					if(smStatus == 7.5){
+						$("#smAuto").addClass("active");
+						$("#smOpen").removeClass("active");
+						$("#smClose").addClass("active");
+					} else {
+						$("#smAuto").addClass("active");
+						$("#smOpen").addClass("active");
+						$("#smClose").removeClass("active");
+					}
 				}
 			});
 		</script>
 	</head>
 	<body>
-		<div class="container">
-			<h1>Sensor de LDR</h1>
-			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<div class="center-div container">
+			<h1 class="center">Sensor de LDR</h1>
+			<div class="center-div btn-group btn-group-toggle" data-toggle="buttons">
 				<label class="alert alert-primary" id="ldrStatus"></label>
 			</div>
-			<h1>Servo Motor</h1>
-			<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<h1 class="center">Servo Motor</h1>
+			<div class="center-div btn-group btn-group-toggle" data-toggle="buttons">
 				<a href="/" class="btn btn-secondary active" id="smAuto">Automático</a>
 				<a href="/sm/12.5" class="btn btn-secondary" id="smOpen">Aberto</a>
 				<a href="/sm/7.5" class="btn btn-secondary" id="smClose">Fechado</a>
